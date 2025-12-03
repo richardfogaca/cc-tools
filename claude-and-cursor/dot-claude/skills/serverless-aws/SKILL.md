@@ -33,28 +33,6 @@ async function handleInternal(event: AWSLambda.APIGatewayProxyEvent) {
 }
 ```
 
-## Secrets Management
-
-```typescript
-import { get } from '@org/aws-secrets-client';
-
-interface ServiceAuth {
-    username: string;
-    password: string;
-    api_key: string;
-}
-
-// Cache at module level for Lambda reuse
-let cachedAuth: ServiceAuth;
-
-export async function getAuth() {
-    if (!cachedAuth) {
-        cachedAuth = await get<ServiceAuth>('service-secrets', { path: 'auth' });
-    }
-    return cachedAuth;
-}
-```
-
 ## Cold Start Optimization
 
 Initialize clients outside handler:
